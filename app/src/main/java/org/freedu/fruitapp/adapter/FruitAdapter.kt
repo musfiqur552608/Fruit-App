@@ -2,6 +2,7 @@ package org.freedu.fruitapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import org.freedu.fruitapp.databinding.FruitItemBinding
 import org.freedu.fruitapp.model.Fruit
@@ -36,6 +37,19 @@ class FruitAdapter(private val fruitList:ArrayList<Fruit>):RecyclerView.Adapter<
 
         holder.itemView.setOnClickListener {
             onClick?.invoke(fruitList[position])
+        }
+
+        holder.itemView.setOnLongClickListener {
+            AlertDialog.Builder(holder.itemView.context)
+                .setTitle("Delete Fruit Item")
+                .setMessage("Are you sure you want to delete this item?")
+                .setPositiveButton("Yes") { _, _ ->
+                    fruitList.removeAt(position)
+                    notifyItemRemoved(position)
+                }
+                .setNegativeButton("No", null)
+                .show()
+            true
         }
     }
 }

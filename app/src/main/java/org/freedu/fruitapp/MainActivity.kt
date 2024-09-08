@@ -76,6 +76,8 @@ class MainActivity : AppCompatActivity() {
             showFruitAddDialog()
         }
 
+
+
     }
 
     private fun showFruitAddDialog() {
