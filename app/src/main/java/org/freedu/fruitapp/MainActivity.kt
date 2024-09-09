@@ -4,16 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.freedu.fruitapp.adapter.FruitAdapter
 import org.freedu.fruitapp.databinding.ActivityMainBinding
-import org.freedu.fruitapp.databinding.AddFruitLayoutBinding
 import org.freedu.fruitapp.model.Fruit
 
 class MainActivity : AppCompatActivity() {
@@ -76,6 +73,26 @@ class MainActivity : AppCompatActivity() {
             showFruitAddDialog()
         }
 
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                fruit.removeAt(viewHolder.adapterPosition)
+                fruitAdapter.notifyItemRemoved(viewHolder.adapterPosition)
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(binding.fruitRv)
+
 
 
     }
@@ -103,4 +120,6 @@ class MainActivity : AppCompatActivity() {
             .show()
 
     }
+
+
 }

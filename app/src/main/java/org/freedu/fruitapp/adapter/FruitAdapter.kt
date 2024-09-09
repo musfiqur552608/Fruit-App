@@ -1,9 +1,11 @@
 package org.freedu.fruitapp.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import org.freedu.fruitapp.databinding.FruitItemBinding
 import org.freedu.fruitapp.model.Fruit
 
@@ -51,5 +53,10 @@ class FruitAdapter(private val fruitList:ArrayList<Fruit>):RecyclerView.Adapter<
                 .show()
             true
         }
+
+
     }
+
+
 }
+
